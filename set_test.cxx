@@ -192,3 +192,12 @@ TEST(timing, pushAndPopRight) {
 TEST_F(SequenceSet, size) {
     ASSERT_EQ(set.size(&c_set), std_set.size());
 }
+
+TEST_F(SequenceSet, traverse) {
+    auto iter = set.begin(&c_set);
+    for (unsigned i = 0; i != count; ++i) {
+        unsigned elem = *reinterpret_cast<unsigned*>(set.iter_dereference(iter));
+        ASSERT_EQ(elem, i+1);
+        iter = set.iter_next(iter);
+    }
+}
