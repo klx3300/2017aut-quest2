@@ -67,7 +67,7 @@ TEST(randomPush, timing) {
 void random_push(VectorDescriptor &c_vec, std::vector<double> &std_vec,
                  size_t count);
 
-#define TRAVERSE_CHECK() do {    /* validation*/\
+#define TRAVERSE_CHECK(c_vec, std_vec) do {    /* validation*/\
     /* size */\
     ASSERT_EQ(vector.size(&c_vec), std_vec.size()) << "wrong size";\
     /* get the iterators */\
@@ -88,7 +88,7 @@ TEST_F(VectorTest, iterator) {
     // random push
     random_push(c_vec, std_vec, 2333);
 
-    TRAVERSE_CHECK();
+    TRAVERSE_CHECK(c_vec, std_vec);
 }
 
 TEST_F(VectorTest, randomPop) {
@@ -112,7 +112,7 @@ TEST_F(VectorTest, randomPop) {
         std_vec.pop_back();
     }
 
-    TRAVERSE_CHECK();
+    TRAVERSE_CHECK(c_vec, std_vec);
 }
 
 TEST_F(VectorTest, randomErase) {
@@ -140,7 +140,7 @@ TEST_F(VectorTest, randomErase) {
         std_vec.erase(std_vec.begin()+5);
     }
 
-    TRAVERSE_CHECK();
+    TRAVERSE_CHECK(c_vec, std_vec);
 }
 
 TEST_F(VectorTest, clear) {
@@ -157,7 +157,7 @@ TEST_F(VectorTest, clear) {
     std::vector<double> std_vec;
     random_push(c_vec, std_vec, 1000);
     
-    TRAVERSE_CHECK();
+    TRAVERSE_CHECK(c_vec, std_vec);
 }
 
 TEST_F(VectorTest, shrink) {
@@ -180,7 +180,7 @@ TEST_F(VectorTest, shrink) {
     std::vector<double> std_vec;
     random_push(c_vec, std_vec, 1000);
     
-    TRAVERSE_CHECK();
+    TRAVERSE_CHECK(c_vec, std_vec);
 }
 TEST_F(VectorTest, reserve) {
     std::default_random_engine rand_eng(810);
@@ -196,7 +196,7 @@ TEST_F(VectorTest, reserve) {
     std::vector<double> std_vec;
     random_push(c_vec, std_vec, 1000);
     
-    TRAVERSE_CHECK();
+    TRAVERSE_CHECK(c_vec, std_vec);
 }
 void random_push(VectorDescriptor &c_vec, std::vector<double> &std_vec,
                  size_t count) {
